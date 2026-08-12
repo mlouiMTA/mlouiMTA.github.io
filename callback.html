@@ -19,8 +19,10 @@
   // listener the authorize script runs on THIS machine. The authorization code in
   // the URL is single-use, short-lived, and useless without the app's client
   // secret, which never leaves the firm's computer.
+  // Forward preserving this page's own path, so the local listener (which expects
+  // the same path as the registered redirect URI) accepts the request.
   if (location.search) {
-    location.replace('http://localhost:8081/callback' + location.search);
+    location.replace('http://localhost:8081' + location.pathname + location.search);
   } else {
     document.getElementById('msg').textContent = 'Nothing to do';
     document.getElementById('detail').textContent =
