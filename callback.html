@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Connecting to QuickBooks…</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 34rem; margin: 4rem auto; padding: 0 1.25rem; line-height: 1.6; color: #1a1a1a; }
+</style>
+</head>
+<body>
+<h2 id="msg">Finishing the QuickBooks connection…</h2>
+<p id="detail">Handing back to the connection tool running on your computer.</p>
+<script>
+  // OAuth bounce page for MyTaxAccountant.io's internal QuickBooks tool.
+  // Intuit requires a public HTTPS redirect URI in production; this page simply
+  // forwards the browser (with Intuit's query parameters intact) to the one-shot
+  // listener the authorize script runs on THIS machine. The authorization code in
+  // the URL is single-use, short-lived, and useless without the app's client
+  // secret, which never leaves the firm's computer.
+  if (location.search) {
+    location.replace('http://localhost:8081/callback' + location.search);
+  } else {
+    document.getElementById('msg').textContent = 'Nothing to do';
+    document.getElementById('detail').textContent =
+      'This page is only used during QuickBooks authorization. You can close this tab.';
+  }
+</script>
+<noscript>
+  <p>JavaScript is disabled. Copy this page's full URL from the address bar and paste
+  it into the terminal running the connection script.</p>
+</noscript>
+</body>
+</html>
